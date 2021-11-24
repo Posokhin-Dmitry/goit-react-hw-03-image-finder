@@ -6,42 +6,65 @@ import Button from './components/Button/Button';
 
 class App extends Component {
   state = {
-    page: 1,
+    // page: 1,
+    // dataImages: [],
+    // maxPerPage: 12,
     query: '',
-    dataImages: [],
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const { page, query } = this.state;
-    if (prevState.query !== query) {
-      this.searchQuery(page, query);
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const prevPage = prevState.page;
+  //   const prevQuery = prevState.query;
+  //   const newPage = this.state.page;
+  //   const newQuery = this.state.query;
+  //   const maxPerPage = this.state.maxPerPage;
+
+  //   if (prevQuery !== newQuery) {
+  //     this.setState({ page: 1, dataImages: [] });
+  //     this.searchQuery1(newPage, newQuery, maxPerPage);
+  //   }
+  //   if (prevPage !== newPage) {
+  //     this.searchQuery(newPage, newQuery, maxPerPage);
+  //   }
+  // }
 
   handleFormSubmit = query => {
     this.setState({ query });
   };
 
-  searchQuery = (page, query) => {
-    api.searchQuery(page, query).then(({ data }) => {
-      console.log(data.hits);
-      const newDataImages = [...data.hits];
-      this.setState({ dataImages: newDataImages });
-    });
-  };
+  // searchQuery1 = (page, query, maxPerPage) => {
+  //   api.searchQuery(page, query, maxPerPage).then(({ data }) => {
+  //     console.log(data.hits);
+  //     console.log(this.state.dataImages);
+  //     this.setState({ dataImages: [] });
+  //     const newDataImages = [...data.hits];
+  //     this.setState({ dataImages: newDataImages });
+  //   });
+  // };
 
-  handleClickLoadMore = () => {
-    let { page } = this.state;
-    page += 1;
-    this.setState({ page });
-  };
+  // searchQuery = (page, query, maxPerPage) => {
+  //   api.searchQuery(page, query, maxPerPage).then(({ data }) => {
+  //     console.log(data.hits);
+  //     console.log(this.state.dataImages);
+  //     const newDataImages = [...this.state.dataImages, ...data.hits];
+  //     this.setState({ dataImages: newDataImages });
+  //   });
+  // };
+
+  // handleClickLoadMore = () => {
+  //   let { page } = this.state;
+  //   page += 1;
+  //   this.setState({ page });
+  // };
 
   render() {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery dataImages={this.state.dataImages} />
-        <Button onClick={this.handleClickLoadMore} />
+        <ImageGallery query={this.state.query} />
+        {/* {this.state.dataImages.length > 11 && (
+          <Button onClick={this.handleClickLoadMore} />
+        )} */}
       </div>
     );
   }
