@@ -19,24 +19,22 @@ class ImageGallery extends Component {
     const maxPerPage = this.state.maxPerPage;
 
     if (prevQuery !== newQuery) {
-      this.setState({ page: 1, dataImages: [] });
+      this.setState({ dataImages: [], page: 1 });
       api.searchQuery(newPage, newQuery, maxPerPage).then(({ data }) => {
         this.setState({ dataImages: [...data.hits] });
         console.log(data);
+        console.log(this.state.dataImages);
+        console.log('query');
       });
     }
     if (prevPage !== newPage) {
       api.searchQuery(newPage, newQuery, maxPerPage).then(({ data }) => {
         this.setState({ dataImages: [...prevState.dataImages, ...data.hits] });
+        console.log(this.state.dataImages);
+        console.log('page', this.state.page);
       });
     }
   }
-
-  handleClickLoadMore = () => {
-    let { page } = this.state;
-    page += 1;
-    this.setState({ page });
-  };
 
   handleClickLoadMore = () => {
     let { page } = this.state;

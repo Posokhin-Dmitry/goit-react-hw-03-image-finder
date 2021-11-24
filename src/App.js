@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import * as api from './Servises/api';
+// import * as api from './Servises/api';
 import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
-import Button from './components/Button/Button';
+// import Button from './components/Button/Button';
 
 class App extends Component {
   state = {
