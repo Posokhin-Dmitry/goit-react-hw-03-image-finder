@@ -1,7 +1,7 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import PropTypes from 'prop-types';
 
-const ImageGallery = ({ dataImages }) => {
+const ImageGallery = ({ dataImages, onClickImg }) => {
   return (
     <ul className="ImageGallery">
       {dataImages.map(({ id, webformatURL, tags, largeImageURL }) => (
@@ -10,6 +10,7 @@ const ImageGallery = ({ dataImages }) => {
           tags={tags}
           webformatURL={webformatURL}
           largeImageURL={largeImageURL}
+          onClick={onClickImg}
         />
       ))}
     </ul>
@@ -18,6 +19,7 @@ const ImageGallery = ({ dataImages }) => {
 
 ImageGallery.propTypes = {
   dataImages: PropTypes.arrayOf(PropTypes.object),
+  onClickImg: PropTypes.func,
 };
 
 export default ImageGallery;
