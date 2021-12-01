@@ -5,6 +5,7 @@ import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
 import Loader from './components/Loader/Loader';
 import Modal from './components/Modal/Modal';
+import filterData from './helpers/filterData';
 
 class App extends Component {
   state = {
@@ -41,7 +42,9 @@ class App extends Component {
     api
       .searchQuery(page, query, maxPerPage)
       .then(({ data }) => {
-        this.setState({ dataImages: [...this.state.dataImages, ...data.hits] });
+        this.setState({
+          dataImages: [...this.state.dataImages, ...filterData(data.hits)],
+        });
       })
       .catch(error => console.log(error))
       .finally(() => this.setState({ isLoading: false }));
@@ -68,7 +71,7 @@ class App extends Component {
   };
 
   render() {
-    const { dataImages, isLoading, showModal, largeImage, query } = this.state;
+    const { dataImages, isLoading, showModal, largeImage } = this.state;
     const {
       handleFormSubmit,
       handleClickImg,
@@ -78,7 +81,9 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={handleFormSubmit} />
-        <ImageGallery dataImages={dataImages} onClickImg={handleClickImg} />
+        {dataImages.length > 0 && (
+          <ImageGallery dataImages={dataImages} onClickImg={handleClickImg} />
+        )}
         {isLoading && <Loader />}
         {dataImages.length > 11 && <Button onClick={handleClickLoadMore} />}
         {showModal && <Modal img={largeImage} onClose={toggleModal} />}
